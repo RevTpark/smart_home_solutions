@@ -3,6 +3,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import serial
 from decouple import config
+import requests
 
 def send_email(receiver_email, user_name, temp, hum):
     sender_email = config('SENDER_MAIL')
@@ -38,15 +39,38 @@ def send_email(receiver_email, user_name, temp, hum):
     smtp_server.quit()
 
 
+def send_whatsapp_mssg(send_to):
+    url = f"https://graph.facebook.com/v16.0/{config('PH_NUMBER_ID')}/messages"
+    headers = {"Authorization": f"Bearer {config('TOKEN')}"}
+    body = {
+        "messaging_product": "whatsapp",
+        "to": send_to,
+        "type": "template",
+        "template": {
+            "name": "hello_world",
+            "language": {
+                "code": "en_US"
+            },
+        }
+    }
+    response = requests.post(url, headers=headers, json=body)
+    if response.status_code != 200:
+        print("Error in the Request")
+
+    
+
 ser = serial.Serial('COM3', 9600)
 while True:
     data = ser.readline().decode().rstrip()
     temp, hum = list(map(int, data.split(",")))
     print(temp, hum)
     
-    to_mail = "anairs20comp@student.mes.ac.in"
-    user_name = "Akash Nair"
+    to_mail = "tparkar20comp@student.mes.ac.in"
+    user_name = "Tanishq Parkar"
     send_email(to_mail, user_name, temp, hum)
+
+    send_to = "XXXXXXXX000"
+    send_whatsapp_mssg(send_to)
     break
 
 
