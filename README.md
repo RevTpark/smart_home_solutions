@@ -4,7 +4,7 @@
 </div>
 
 ## [Working Demo of the Project](https://youtu.be/2ngJKGps6E4)
-The smart home solution project is a system that utilizes an ultrasonic sensor to detect motion in a room and turn on LED lights based on the intensity of a Light Dependent Resistor (LDR) sensor. The project also includes a DHT sensor that detects the temperature and humidity of the room and controls the speed of a fan accordingly. Additionally, the system sends an email and a WhatsApp message to the user upon detecting motion for the first time, providing them with the temperature and humidity readings of the room. Overall, the project aims to enhance the safety and comfort of homes by automating certain tasks based on environmental conditions.
+The Smart Home Solutions project involves using sensors and controllers to create an automated system for a home. The system uses an ultrasonic sensor to detect motion in a room and turn on LED lights with their intensity based on the LDR sensor reading. It also has a DHT sensor that reads the temperature of the room and turns on a fan with its speed determined by the temperature reading. The system sends an email and WhatsApp message to the user when motion is detected for the first time, greeting the user and providing the current temperature and humidity reading of the room. Additionally, the system now has an app that allows the user to monitor the current temperature and humidity readings and control the lights remotely.
 
 ## Features
 - **Motion Detection**: The project uses an ultrasonic sensor to detect motion in a room.
@@ -15,8 +15,11 @@ The smart home solution project is a system that utilizes an ultrasonic sensor t
 
 - **Email and Whatsapp Notifications**: When motion is detected for the first time, the project sends an email and WhatsApp message to the user, greeting them and giving them the temperature and humidity readings of the room.
 
+- **Mobile App**: The project now has its own mobile app that allows users to see the current temperature and humidity and control the lights via the app.
+
 ## Hardware
 - Arduino UNO
+- NodeMCU with ESP8266 Wifi Module
 - Relay SPDT
 - Temperature Sensor(DHT)
 - Ultrasonic Sensor
@@ -26,3 +29,4 @@ The smart home solution project is a system that utilizes an ultrasonic sensor t
 ## Software
 - Arduino IDE
 - Python
+- Flutter
