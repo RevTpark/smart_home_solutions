@@ -2,23 +2,65 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
-class DisplayTH extends StatelessWidget {
+class DisplayTH extends StatefulWidget {
   const DisplayTH({super.key, required this.value, required this.is_temp});
   final String value;
   final bool is_temp;
 
   @override
+  State<DisplayTH> createState() => _DisplayTHState();
+}
+
+class _DisplayTHState extends State<DisplayTH> with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+  late Animation<int> _animation;
+
+  @override
+  void initState() {
+    _controller = AnimationController(
+      duration: Duration(seconds: 1),
+      vsync: this,
+    );
+
+    _animation = IntTween(begin: 0, end: int.parse(widget.value)).animate(_controller);
+    _controller.forward();
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(DisplayTH oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (widget.value != "0") {
+      _animation = IntTween(
+        begin: 0, end: int.parse(widget.value),
+      ).animate(_controller);
+
+      _controller.reset();
+      _controller.forward();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+
     return Container(
       width: 125,
       height: 125,
       padding: EdgeInsets.all(20),
       margin: EdgeInsets.all(12),
       decoration: BoxDecoration(
-          color: is_temp? Color.fromARGB(129, 244, 67, 54): Color.fromARGB(134, 33, 149, 243),
+          color: widget.is_temp? Color.fromARGB(129, 244, 67, 54): Color.fromARGB(134, 33, 149, 243),
           border: Border.all(
             width: 1, 
-            color: is_temp? Colors.red.shade800: Colors.blue.shade800
+            color: widget.is_temp? Colors.red.shade800: Colors.blue.shade800
           ),
           borderRadius: BorderRadius.circular(150)),
       child: Column(
@@ -27,7 +69,7 @@ class DisplayTH extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              is_temp? Icon(
+              widget.is_temp? Icon(
                 Icons.thermostat, 
                 color: Colors.red
               )
@@ -35,10 +77,15 @@ class DisplayTH extends StatelessWidget {
                 Icons.water_drop,
                 color: Colors.blue
               ),
-              is_temp? Text("$value°C"): Text("$value%"),
+              AnimatedBuilder(
+                animation: _controller,
+                builder: (BuildContext context, Widget? child){
+                  return widget.is_temp? Text("${_animation.value}°C"): Text("${_animation.value}%");
+                }
+              )
             ],
           ),
-          is_temp? Text("Temperature"): Text("Humidity")
+          widget.is_temp? Text("Temperature"): Text("Humidity")
         ],
       ),
     );
