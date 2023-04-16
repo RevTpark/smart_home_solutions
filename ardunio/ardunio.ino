@@ -1,4 +1,5 @@
 #include <dht11.h>
+#include <Wire.h>
 
 #define LED_PIN 11
 #define LDR_PIN 13
@@ -23,6 +24,12 @@ void setup()
   pinMode(echoPin, INPUT);
   pinMode(REL_PIN, OUTPUT);
   Serial.begin(9600);
+
+  // I2C Slave Mode Setup
+  Wire.begin(8);                /* join i2c bus with address 8 */
+  Wire.onReceive(receiveEvent); /* register receive event */
+  Wire.onRequest(requestEvent); /* register request event */
+  Serial.begin(9600); 
 }
 
 // void loop(){ }
@@ -57,4 +64,26 @@ void loop(){
     digitalWrite(REL_PIN, HIGH);
   }
   delay(1000);
+}
+
+void receiveEvent(int howMany) {
+ while (0 <Wire.available()) {
+    char c = Wire.read();
+    if(c == 'O'){
+      Serial.println("ONN");
+      digitalWrite(LED_PIN, HIGH);
+    }
+    else if(c == 'F'){
+      Serial.println("OFF");
+      digitalWrite(LED_PIN, LOW);
+    }
+  }
+}
+
+// function that executes whenever data is requested from master
+void requestEvent() {
+  int chk = DHT11.read(DHT_PIN);
+  String sendStr = String(DHT11.temperature) + "," + String(DHT11.humidity) +".";
+  // Serial.println(sendStr);
+  Wire.write(sendStr.c_str(), sendStr.length());
 }
