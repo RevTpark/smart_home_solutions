@@ -3,7 +3,7 @@
   <img width="50%" src="https://user-images.githubusercontent.com/78678620/232232346-3f078a92-f522-4248-b83f-f16c2c4feaf0.jpg"></img>
 </div>
 
-## [Working Demo of the Project](https://youtu.be/2ngJKGps6E4)
+## [Working Demo of the Project](https://youtu.be/Hja5Ex_1M4U)
 The Smart Home Solutions project involves using sensors and controllers to create an automated system for a home. The system uses an ultrasonic sensor to detect motion in a room and turn on LED lights with their intensity based on the LDR sensor reading. It also has a DHT sensor that reads the temperature of the room and turns on a fan with its speed determined by the temperature reading. The system sends an email and WhatsApp message to the user when motion is detected for the first time, greeting the user and providing the current temperature and humidity reading of the room. Additionally, the system now has an app that allows the user to monitor the current temperature and humidity readings and control the lights remotely.
 
 ## Features

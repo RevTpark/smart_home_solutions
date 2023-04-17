@@ -82,7 +82,7 @@ void receiveEvent(int howMany) {
 
 // function that executes whenever data is requested from master
 void requestEvent() {
-  int chk = DHT11.read(DHT_PIN);
+  int chk = DHT11.read(DHT11_PIN);
   String sendStr = String(DHT11.temperature) + "," + String(DHT11.humidity) +".";
   // Serial.println(sendStr);
   Wire.write(sendStr.c_str(), sendStr.length());
