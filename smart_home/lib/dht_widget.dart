@@ -18,7 +18,7 @@ class _DisplayTHState extends State<DisplayTH> with SingleTickerProviderStateMix
   @override
   void initState() {
     _controller = AnimationController(
-      duration: Duration(seconds: 1),
+      duration: const Duration(seconds: 1),
       vsync: this,
     );
 
@@ -54,10 +54,9 @@ class _DisplayTHState extends State<DisplayTH> with SingleTickerProviderStateMix
     return Container(
       width: 125,
       height: 125,
-      padding: EdgeInsets.all(20),
-      margin: EdgeInsets.all(12),
+      margin: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-          color: widget.is_temp? Color.fromARGB(129, 244, 67, 54): Color.fromARGB(134, 33, 149, 243),
+          color: widget.is_temp? const Color.fromARGB(129, 244, 67, 54): const Color.fromARGB(134, 33, 149, 243),
           border: Border.all(
             width: 1, 
             color: widget.is_temp? Colors.red.shade800: Colors.blue.shade800
@@ -69,11 +68,11 @@ class _DisplayTHState extends State<DisplayTH> with SingleTickerProviderStateMix
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              widget.is_temp? Icon(
+              widget.is_temp? const Icon(
                 Icons.thermostat, 
                 color: Colors.red
               )
-              :Icon(
+              :const Icon(
                 Icons.water_drop,
                 color: Colors.blue
               ),
@@ -85,7 +84,7 @@ class _DisplayTHState extends State<DisplayTH> with SingleTickerProviderStateMix
               )
             ],
           ),
-          widget.is_temp? Text("Temperature"): Text("Humidity")
+          widget.is_temp? const Text("Temperature"): const Text("Humidity")
         ],
       ),
     );
